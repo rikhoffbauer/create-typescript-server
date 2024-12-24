@@ -116,8 +116,8 @@ async function createServer(directory: string, options: any = {}) {
       type: "confirm",
       name: "installForClaude",
       message: "Would you like to install this server for Claude.app?",
-      default: true,
-      when: os.platform() === "darwin" || os.platform() === "win32",
+      default: options.noinstall == null && options.install == null || options.install === true,
+      when: options.install == null && options.noinstall == null && os.platform() === "darwin" || os.platform() === "win32",
     },
   ];
 
@@ -126,6 +126,7 @@ async function createServer(directory: string, options: any = {}) {
   const config = {
     name: options.name || answers.name,
     description: options.description || answers.description,
+    installForClaude: options.install || answers.installForClaude,
   };
 
   const spinner = ora("Creating MCP server...").start();
@@ -197,6 +198,8 @@ const program = new Command()
   .argument("<directory>", "Directory to create the server in")
   .option("-n, --name <name>", "Name of the server")
   .option("-d, --description <description>", "Description of the server")
+  .option("--install", "Install the server for the Claude app")
+  .option("--noinstall", "Don't install the server for the Claude app")
   .action(createServer);
 
 program.parse();
