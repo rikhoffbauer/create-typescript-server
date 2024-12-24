@@ -9,7 +9,7 @@ A command line tool for quickly scaffolding new MCP (Model Context Protocol) ser
 npx @modelcontextprotocol/create-server my-server
 
 # With options
-npx @modelcontextprotocol/create-server my-server --name "My MCP Server" --description "A custom MCP server"
+npx @modelcontextprotocol/create-server my-server --name "My MCP Server" --description "A custom MCP server" --install
 ```
 
 After creating your server:
